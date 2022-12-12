@@ -6,7 +6,7 @@
 		$apps[$x]['category'] = 'Switch';
 		$apps[$x]['subcategory'] = 'Dialplan';
 		$apps[$x]['version'] = '1.3';
-		$apps[$x]['license'] = 'Member';
+		$apps[$x]['license'] = 'BSD';
 		$apps[$x]['url'] = 'http://www.fusionpbx.com';
 		$apps[$x]['description']['en-us'] = '';
 
