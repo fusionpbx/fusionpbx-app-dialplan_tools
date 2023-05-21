@@ -1,6 +1,6 @@
 <?php
 /*
-	Copyright (c) 2019-2022 Mark J Crane <markjcrane@fusionpbx.com>
+	Copyright (c) 2019-2023 Mark J Crane <markjcrane@fusionpbx.com>
 	
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
@@ -49,14 +49,14 @@
 	$text = $language->get();
 
 //get the http post data
-	if (is_array($_POST['dialplan_tools'])) {
+	if (!empty($_POST['dialplan_tools']) && is_array($_POST['dialplan_tools'])) {
 		$action = $_POST['action'];
-		$search = $_POST['search'];
+		$search = $_POST['search'] ?? null;
 		$dialplan_tools = $_POST['dialplan_tools'];
 	}
 
 //process the http post data by action
-	if ($action != '' && is_array($dialplan_tools) && @sizeof($dialplan_tools) != 0) {
+	if (!empty($action) && is_array($dialplan_tools) && @sizeof($dialplan_tools) != 0) {
 
 		//validate the token
 		$token = new token;
@@ -67,10 +67,11 @@
 		}
 
 		//prepare the array
-		foreach($dialplan_tools as $row) {
-			$array['dialplan_tools'][$x]['checked'] = $row['checked'];
+		$x = 0;
+		foreach ($dialplan_tools as $row) {
+			$array['dialplan_tools'][$x]['checked'] = $row['checked'] ?? null;
 			$array['dialplan_tools'][$x]['dialplan_tool_uuid'] = $row['dialplan_tool_uuid'];
-			$array['dialplan_tools'][$x]['enabled'] = $row['enabled'];
+			$array['dialplan_tools'][$x]['enabled'] = $row['enabled'] ?? null;
 			$x++;
 		}
 
@@ -104,8 +105,8 @@
 	}
 
 //get order and order by
-	$order_by = $_GET["order_by"];
-	$order = $_GET["order"];
+	$order_by = $_GET["order_by"] ?? null;
+	$order = $_GET["order"] ?? null;
 
 //add the search
 	if (isset($_GET["search"])) {
@@ -137,9 +138,9 @@
 
 //prepare to page the results
 	$rows_per_page = ($_SESSION['domain']['paging']['numeric'] != '') ? $_SESSION['domain']['paging']['numeric'] : 50;
-	$param = $search ? "&search=".$search : null;
-	$param = ($_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) ? "&show=all" : null;
-	$page = is_numeric($_GET['page']) ? $_GET['page'] : 0;
+	$param = !empty($search) ? "&search=".$search : null;
+	$param = (!empty($_GET['show']) && $_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) ? "&show=all" : null;
+	$page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 0;
 	list($paging_controls, $rows_per_page) = paging($num_rows, $param, $rows_per_page);
 	list($paging_controls_mini, $rows_per_page) = paging($num_rows, $param, $rows_per_page, true);
 	$offset = $rows_per_page * $page;
@@ -203,16 +204,16 @@
 	}
 	echo 		"<form id='form_search' class='inline' method='get'>\n";
 	if (permission_exists('dialplan_tool_all')) {
-		if ($_GET['show'] == 'all') {
+		if (!empty($_GET['show']) && $_GET['show'] == 'all') {
 			echo "		<input type='hidden' name='show' value='all'>\n";
 		}
 		else {
 			echo button::create(['type'=>'button','label'=>$text['button-show_all'],'icon'=>$_SESSION['theme']['button_icon_all'],'link'=>'?show=all']);
 		}
 	}
-	echo 		"<input type='text' class='txt list-search' name='search' id='search' value=\"".escape($search)."\" placeholder=\"".$text['label-search']."\" onkeydown='list_search_reset();'>";
-	echo button::create(['label'=>$text['button-search'],'icon'=>$_SESSION['theme']['button_icon_search'],'type'=>'submit','id'=>'btn_search','style'=>($search != '' ? 'display: none;' : null)]);
-	echo button::create(['label'=>$text['button-reset'],'icon'=>$_SESSION['theme']['button_icon_reset'],'type'=>'button','id'=>'btn_reset','link'=>'dialplan_tools.php','style'=>($search == '' ? 'display: none;' : null)]);
+	echo 		"<input type='text' class='txt list-search' name='search' id='search' value=\"".escape($search ?? null)."\" placeholder=\"".$text['label-search']."\" onkeydown='list_search_reset();'>";
+	echo button::create(['label'=>$text['button-search'],'icon'=>$_SESSION['theme']['button_icon_search'],'type'=>'submit','id'=>'btn_search','style'=>(!empty($search) ? 'display: none;' : null)]);
+	echo button::create(['label'=>$text['button-reset'],'icon'=>$_SESSION['theme']['button_icon_reset'],'type'=>'button','id'=>'btn_reset','link'=>'dialplan_tools.php','style'=>(!empty($search) ? 'display: none;' : null)]);
 	if ($paging_controls_mini != '') {
 		echo 	"<span style='margin-left: 15px;'>".$paging_controls_mini."</span>\n";
 	}
@@ -236,16 +237,16 @@
 
 	echo "<form id='form_list' method='post'>\n";
 	echo "<input type='hidden' id='action' name='action' value=''>\n";
-	echo "<input type='hidden' name='search' value=\"".escape($search)."\">\n";
+	echo "<input type='hidden' name='search' value=\"".escape($search ?? null)."\">\n";
 
 	echo "<table class='list'>\n";
 	echo "<tr class='list-header'>\n";
 	if (permission_exists('dialplan_tool_add') || permission_exists('dialplan_tool_edit') || permission_exists('dialplan_tool_delete')) {
 		echo "	<th class='checkbox'>\n";
-		echo "		<input type='checkbox' id='checkbox_all' name='checkbox_all' onclick='list_all_toggle(); checkbox_on_change(this);' ".($dialplan_tools ?: "style='visibility: hidden;'").">\n";
+		echo "		<input type='checkbox' id='checkbox_all' name='checkbox_all' onclick='list_all_toggle(); checkbox_on_change(this);' ".(empty($dialplan_tools) ? "style='visibility: hidden;'" : null).">\n";
 		echo "	</th>\n";
 	}
-	if ($_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) {
+	if (!empty($_GET['show']) && $_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) {
 		echo th_order_by('domain_name', $text['label-domain'], $order_by, $order);
 	}
 	echo th_order_by('name', $text['label-name'], $order_by, $order);
@@ -253,7 +254,7 @@
 	echo th_order_by('data', $text['label-data'], $order_by, $order);
 	echo th_order_by('enabled', $text['label-enabled'], $order_by, $order, null, "class='center'");
 	echo th_order_by('description', $text['label-description'], $order_by, $order);
-	if (permission_exists('dialplan_tool_edit') && $_SESSION['theme']['list_row_edit_button']['boolean'] == 'true') {
+	if (permission_exists('dialplan_tool_edit') && !empty($_SESSION['theme']['list_row_edit_button']['boolean']) && $_SESSION['theme']['list_row_edit_button']['boolean'] == 'true') {
 		echo "	<td class='action-button'>&nbsp;</td>\n";
 	}
 	echo "</tr>\n";
@@ -271,7 +272,7 @@
 				echo "		<input type='hidden' name='dialplan_tools[$x][dialplan_tool_uuid]' value='".escape($row['dialplan_tool_uuid'])."' />\n";
 				echo "	</td>\n";
 			}
-			if ($_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) {
+			if (!empty($_GET['show']) && $_GET['show'] == 'all' && permission_exists('dialplan_tool_all')) {
 				echo "	<td>".(isset($row['domain_name']) ? escape($row['domain_name']) : $text['label-global'])."</td>\n";
 			}
 			echo "	<td>\n";
@@ -286,8 +287,8 @@
 			echo "	<td>".escape($row['data'])."</td>\n";
 			if (permission_exists('dialplan_tool_edit')) {
 				echo "	<td class='no-link center'>\n";
-				echo "		<input type='hidden' name='number_translations[$x][enabled]' value='".escape($row['enabled'])."' />\n";
-				echo button::create(['type'=>'submit','class'=>'link','label'=>$text['label-'.$row['enabled']],'title'=>$text['button-toggle'],'onclick'=>"list_self_check('checkbox_".$x."'); list_action_set('toggle'); list_form_submit('form_list')"]);
+				echo "		<input type='hidden' name='dialplan_tools[$x][enabled]' value='".escape($row['enabled'] ?? 'false')."' />\n";
+				echo button::create(['type'=>'submit','class'=>'link','label'=>$text['label-'.($row['enabled'] ?? 'false')],'title'=>$text['button-toggle'],'onclick'=>"list_self_check('checkbox_".$x."'); list_action_set('toggle'); list_form_submit('form_list')"]);
 			}
 			else {
 				echo "	<td class='center'>\n";
@@ -295,7 +296,7 @@
 			}
 			echo "	</td>\n";
 			echo "	<td>".escape($row['description'])."</td>\n";
-			if (permission_exists('dialplan_tool_edit') && $_SESSION['theme']['list_row_edit_button']['boolean'] == 'true') {
+			if (permission_exists('dialplan_tool_edit') && !empty($_SESSION['theme']['list_row_edit_button']['boolean']) && $_SESSION['theme']['list_row_edit_button']['boolean'] == 'true') {
 				echo "	<td class='action-button'>\n";
 				echo button::create(['type'=>'button','title'=>$text['button-edit'],'icon'=>$_SESSION['theme']['button_icon_edit'],'link'=>$list_row_url]);
 				echo "	</td>\n";
