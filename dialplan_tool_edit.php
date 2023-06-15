@@ -1,16 +1,18 @@
 <?php
 /*
-	Copyright (c) 2019-2022 Mark J Crane <markjcrane@fusionpbx.com>
+	Copyright (c) 2019-2023 Mark J Crane <markjcrane@fusionpbx.com>
 	
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
+
 		1. Redistributions of source code must retain the above copyright
 		notice, this list of conditions and the following disclaimer.
 	
 		2. Redistributions in binary form must reproduce the above copyright
 		notice, this list of conditions and the following disclaimer in the
 		documentation and/or other materials provided with the distribution.
+
 	THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -46,7 +48,7 @@
 	$text = $language->get();
 
 //action add or update
-	if (is_uuid($_REQUEST["id"])) {
+	if (!empty($_REQUEST["id"]) && is_uuid($_REQUEST["id"])) {
 		$action = "update";
 		$dialplan_tool_uuid = $_REQUEST["id"];
 	}
@@ -55,7 +57,7 @@
 	}
 
 //get http post variables and set them to php variables
-	if (is_array($_POST)) {
+	if (!empty($_POST) && is_array($_POST)) {
 		$name = $_POST["name"];
 		$application = $_POST["application"];
 		$data = $_POST["data"];
@@ -64,7 +66,7 @@
 	}
 
 //process the user data and save it to the database
-	if (count($_POST) > 0 && strlen($_POST["persistformvar"]) == 0) {
+	if (!empty($_POST) && count($_POST) > 0 && (empty($_POST["persistformvar"]) || strlen($_POST["persistformvar"]) == 0)) {
 
 		//validate the token
 			$token = new token;
@@ -75,7 +77,7 @@
 			}
 
 		//process the http post data by submitted action
-			if ($_POST['action'] != '' && strlen($_POST['action']) > 0) {
+			if (!empty($_POST['action']) && strlen($_POST['action']) > 0) {
 
 				//prepare the array(s)
 				//send the array to the database class
@@ -114,7 +116,7 @@
 			//if (strlen($data) == 0) { $msg .= $text['message-required']." ".$text['label-data']."<br>\n"; }
 			if (strlen($enabled) == 0) { $msg .= $text['message-required']." ".$text['label-enabled']."<br>\n"; }
 			//if (strlen($description) == 0) { $msg .= $text['message-required']." ".$text['label-description']."<br>\n"; }
-			if (strlen($msg) > 0 && strlen($_POST["persistformvar"]) == 0) {
+			if (!empty($msg) && strlen($msg) > 0 && (empty($_POST["persistformvar"]) || strlen($_POST["persistformvar"]) == 0)) {
 				require_once "resources/header.php";
 				require_once "resources/persist_form_var.php";
 				echo "<div align='center'>\n";
@@ -188,7 +190,7 @@
 	}
 
 //pre-populate the form
-	if (is_array($_GET) && $_POST["persistformvar"] != "true") {
+	if (!empty($_GET) && is_array($_GET) && (empty($_POST["persistformvar"]) || $_POST["persistformvar"] != "true")) {
 		$sql = "select ";
 		$sql .= "domain_uuid, ";
 		$sql .= "dialplan_tool_uuid, ";
@@ -203,7 +205,7 @@
 		//$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
 		$parameters['dialplan_tool_uuid'] = $dialplan_tool_uuid;
 		$database = new database;
-		$row = $database->select($sql, $parameters, 'row');
+		$row = $database->select($sql, $parameters ?? null, 'row');
 		if (is_array($row) && @sizeof($row) != 0) {
 			$domain_uuid = $row["domain_uuid"];
 			$name = $row["name"];
@@ -225,7 +227,7 @@
 
 //show the content
 	echo "<form name='frm' id='frm' method='post' action=''>\n";
-	echo "<input class='formfld' type='hidden' name='dialplan_tool_uuid' value='".escape($dialplan_tool_uuid)."'>\n";
+	echo "<input class='formfld' type='hidden' name='dialplan_tool_uuid' value='".escape($dialplan_tool_uuid ?? '')."'>\n";
 
 	echo "<div class='action_bar' id='action_bar'>\n";
 	echo "	<div class='heading'><b>".$text['title-dialplan_tool']."</b></div>\n";
@@ -263,7 +265,7 @@
 	echo "	".$text['label-name']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='name' maxlength='255' value='".escape($name)."'>\n";
+	echo "	<input class='formfld' type='text' name='name' maxlength='255' value='".escape($name ?? '')."'>\n";
 	echo "<br />\n";
 	echo $text['description-name']."\n";
 	echo "</td>\n";
@@ -274,8 +276,8 @@
 	echo "	".$text['label-application']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<select name='application' class='formfld' style='width: auto; ".$element['visibility']."' onchange='change_to_input(this);'>\n";
-	if (strlen($application) > 0) {
+	echo "	<select name='application' class='formfld' style='width: auto; ".($element['visibility'] ?? '')."' onchange='change_to_input(this);'>\n";
+	if (!empty($application) && strlen($application) > 0) {
 		echo "		<option value=\"".escape($application)."\" selected=\"selected\">".escape($application)."</option>\n";
 	}
 	else {
@@ -299,7 +301,7 @@
 	echo "	".$text['label-data']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='data' maxlength='255' value='".escape($data)."'>\n";
+	echo "	<input class='formfld' type='text' name='data' maxlength='255' value='".escape($data ?? '')."'>\n";
 	echo "<br />\n";
 	echo $text['description-data']."\n";
 	echo "</td>\n";
@@ -341,13 +343,13 @@
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
 	echo "	<select class='formfld' name='enabled'>\n";
-	if ($enabled == "true") {
+	if (!empty($enabled) && $enabled == "true") {
 		echo "		<option value='true' selected='selected'>".$text['label-true']."</option>\n";
 	}
 	else {
 		echo "		<option value='true'>".$text['label-true']."</option>\n";
 	}
-	if ($enabled == "false") {
+	if (!empty($enabled) && $enabled == "false") {
 		echo "		<option value='false' selected='selected'>".$text['label-false']."</option>\n";
 	}
 	else {
@@ -364,7 +366,7 @@
 	echo "	".$text['label-description']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='description' maxlength='255' value='".escape($description)."'>\n";
+	echo "	<input class='formfld' type='text' name='description' maxlength='255' value='".escape($description ?? '')."'>\n";
 	echo "<br />\n";
 	echo $text['description-description']."\n";
 	echo "</td>\n";
