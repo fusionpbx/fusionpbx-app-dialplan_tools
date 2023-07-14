@@ -2,24 +2,24 @@
 
 	//Dialplan Tools
 		$text['title-dialplan_tools']['en-us'] = 'Dialplan Tools';
-		$text['title-dialplan_tools']['ar-eg'] = '';
-		$text['title-dialplan_tools']['de-at'] = '';
-		$text['title-dialplan_tools']['de-ch'] = '';
-		$text['title-dialplan_tools']['de-de'] = '';
-		$text['title-dialplan_tools']['es-cl'] = '';
-		$text['title-dialplan_tools']['es-mx'] = '';
-		$text['title-dialplan_tools']['fr-ca'] = '';
-		$text['title-dialplan_tools']['fr-fr'] = '';
-		$text['title-dialplan_tools']['he-il'] = '';
-		$text['title-dialplan_tools']['it-it'] = '';
-		$text['title-dialplan_tools']['nl-nl'] = '';
-		$text['title-dialplan_tools']['pl-pl'] = '';
-		$text['title-dialplan_tools']['pt-br'] = '';
-		$text['title-dialplan_tools']['pt-pt'] = '';
-		$text['title-dialplan_tools']['ro-ro'] = '';
-		$text['title-dialplan_tools']['ru-ru'] = '';
-		$text['title-dialplan_tools']['sv-se'] = '';
-		$text['title-dialplan_tools']['uk-ua'] = '';
+		$text['title-dialplan_tools']['ar-eg'] = 'أدوات Dialplan';
+		$text['title-dialplan_tools']['de-at'] = 'Dialplan Tools';
+		$text['title-dialplan_tools']['de-ch'] = 'Dialplan Tools';
+		$text['title-dialplan_tools']['de-de'] = 'Dialplan Tools';
+		$text['title-dialplan_tools']['es-cl'] = 'Herramientas del plan de marcación';
+		$text['title-dialplan_tools']['es-mx'] = 'Herramientas del plan de marcación';
+		$text['title-dialplan_tools']['fr-ca'] = 'Outils de plan de numérotation';
+		$text['title-dialplan_tools']['fr-fr'] = 'Outils de plan de numérotation';
+		$text['title-dialplan_tools']['he-il'] = 'כלים של Dialplan';
+		$text['title-dialplan_tools']['it-it'] = 'Strumenti dialplan';
+		$text['title-dialplan_tools']['nl-nl'] = 'Dialplan Tools';
+		$text['title-dialplan_tools']['pl-pl'] = 'Narzędzia planu wybierania';
+		$text['title-dialplan_tools']['pt-br'] = 'Ferramentas do plano de discagem';
+		$text['title-dialplan_tools']['pt-pt'] = 'Ferramentas do plano de discagem';
+		$text['title-dialplan_tools']['ro-ro'] = 'Instrumente Dialplan';
+		$text['title-dialplan_tools']['ru-ru'] = 'Инструменты диалплана';
+		$text['title-dialplan_tools']['sv-se'] = 'Dialplan verktyg';
+		$text['title-dialplan_tools']['uk-ua'] = 'Інструменти Dialplan';
 
 		$text['title-dialplan_tool']['en-us'] = 'Dialplan Tool';
 		$text['title-dialplan_tool']['ar-eg'] = '';
