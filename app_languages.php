@@ -2,6 +2,7 @@
 
 	//Dialplan Tools
 		$text['title-dialplan_tools']['en-us'] = 'Dialplan Tools';
+		$text['title-dialplan_tools']['en-gb'] = 'Dialplan Tools';
 		$text['title-dialplan_tools']['ar-eg'] = 'أدوات Dialplan';
 		$text['title-dialplan_tools']['de-at'] = 'Dialplan Tools';
 		$text['title-dialplan_tools']['de-ch'] = 'Dialplan Tools';
@@ -20,8 +21,12 @@
 		$text['title-dialplan_tools']['ru-ru'] = 'Инструменты диалплана';
 		$text['title-dialplan_tools']['sv-se'] = 'Dialplan verktyg';
 		$text['title-dialplan_tools']['uk-ua'] = 'Інструменти Dialplan';
+		$text['title-dialplan_tools']['zh-cn'] = '拨号方案工具';
+		$text['title-dialplan_tools']['ja-jp'] = 'ダイヤルプランツール';
+		$text['title-dialplan_tools']['ko-kr'] = '다이얼플랜 도구';
 
 		$text['title-dialplan_tool']['en-us'] = 'Dialplan Tool';
+		$text['title-dialplan_tool']['en-gb'] = 'Dialplan Tool';
 		$text['title-dialplan_tool']['ar-eg'] = 'أداة Dialplan';
 		$text['title-dialplan_tool']['de-at'] = 'Dialplan-Tool';
 		$text['title-dialplan_tool']['de-ch'] = 'Dialplan-Tool';
@@ -40,8 +45,12 @@
 		$text['title-dialplan_tool']['ru-ru'] = 'Инструмент диалплана';
 		$text['title-dialplan_tool']['sv-se'] = 'Dialplan verktyg';
 		$text['title-dialplan_tool']['uk-ua'] = 'Інструмент Dialplan';
+		$text['title-dialplan_tool']['zh-cn'] = '拨号方案工具';
+		$text['title-dialplan_tool']['ja-jp'] = 'ダイヤルプランツール';
+		$text['title-dialplan_tool']['ko-kr'] = '다이얼플랜 도구';
 
 		$text['title_description-dialplan_tools']['en-us'] = 'Use this to define custom destinations for the destination select list.';
+		$text['title_description-dialplan_tools']['en-gb'] = 'Use this to define custom destinations for the destination select list.';
 		$text['title_description-dialplan_tools']['ar-eg'] = 'استخدم هذا لتحديد الوجهات المخصصة لقائمة تحديد الوجهة.';
 		$text['title_description-dialplan_tools']['de-at'] = 'Verwenden Sie dies, um benutzerdefinierte Ziele für die Zielauswahlliste zu definieren.';
 		$text['title_description-dialplan_tools']['de-ch'] = 'Verwenden Sie dies, um benutzerdefinierte Ziele für die Zielauswahlliste zu definieren.';
@@ -60,8 +69,12 @@
 		$text['title_description-dialplan_tools']['ru-ru'] = 'Используйте это, чтобы определить пользовательские места назначения для списка выбора мест назначения.';
 		$text['title_description-dialplan_tools']['sv-se'] = 'Använd detta för att definiera anpassade destinationer för destinationslistan.';
 		$text['title_description-dialplan_tools']['uk-ua'] = 'Використовуйте це, щоб визначити користувальницькі пункти призначення для списку вибору пунктів призначення.';
+		$text['title_description-dialplan_tools']['zh-cn'] = '使用它可以为目标选择列表定义自定义目标。';
+		$text['title_description-dialplan_tools']['ja-jp'] = 'これを使用して、宛先選択リストのカスタム宛先を定義します。';
+		$text['title_description-dialplan_tools']['ko-kr'] = '이를 사용하여 대상 선택 목록에 대한 사용자 정의 대상을 정의합니다.';
 
 		$text['label-name']['en-us'] = 'Name';
+		$text['label-name']['en-gb'] = 'Name';
 		$text['label-name']['ar-eg'] = 'اسم';
 		$text['label-name']['de-at'] = 'Name';
 		$text['label-name']['de-ch'] = 'Name';
@@ -80,8 +93,12 @@
 		$text['label-name']['ru-ru'] = 'Имя';
 		$text['label-name']['sv-se'] = 'namn';
 		$text['label-name']['uk-ua'] = 'Імя';
+		$text['label-name']['zh-cn'] = '姓名';
+		$text['label-name']['ja-jp'] = '名前';
+		$text['label-name']['ko-kr'] = '이름';
 
 		$text['description-name']['en-us'] = 'Enter the name.';
+		$text['description-name']['en-gb'] = 'Enter the name.';
 		$text['description-name']['ar-eg'] = 'أدخل الاسم.';
 		$text['description-name']['de-at'] = 'Geben Sie den Namen ein.';
 		$text['description-name']['de-ch'] = 'Geben Sie den Namen ein.';
@@ -100,8 +117,12 @@
 		$text['description-name']['ru-ru'] = 'Введите имя.';
 		$text['description-name']['sv-se'] = 'Ange namnet.';
 		$text['description-name']['uk-ua'] = 'Введіть назву.';
+		$text['description-name']['zh-cn'] = '输入姓名。';
+		$text['description-name']['ja-jp'] = '名前を入力します。';
+		$text['description-name']['ko-kr'] = '이름을 입력하세요.';
 
 		$text['label-application']['en-us'] = 'Application';
+		$text['label-application']['en-gb'] = 'Application';
 		$text['label-application']['ar-eg'] = 'طلب';
 		$text['label-application']['de-at'] = 'Anwendung';
 		$text['label-application']['de-ch'] = 'Anwendung';
@@ -120,8 +141,12 @@
 		$text['label-application']['ru-ru'] = 'Приложение';
 		$text['label-application']['sv-se'] = 'Ansökan';
 		$text['label-application']['uk-ua'] = 'застосування';
+		$text['label-application']['zh-cn'] = '应用';
+		$text['label-application']['ja-jp'] = '応用';
+		$text['label-application']['ko-kr'] = '애플리케이션';
 
 		$text['description-application']['en-us'] = 'Enter the application';
+		$text['description-application']['en-gb'] = 'Enter the application';
 		$text['description-application']['ar-eg'] = 'أدخل التطبيق';
 		$text['description-application']['de-at'] = 'Geben Sie die Anwendung ein';
 		$text['description-application']['de-ch'] = 'Geben Sie die Anwendung ein';
@@ -140,8 +165,12 @@
 		$text['description-application']['ru-ru'] = 'Войдите в приложение';
 		$text['description-application']['sv-se'] = 'Gå in i applikationen';
 		$text['description-application']['uk-ua'] = 'Введіть заявку';
+		$text['description-application']['zh-cn'] = '输入申请';
+		$text['description-application']['ja-jp'] = 'アプリケーションを入力してください';
+		$text['description-application']['ko-kr'] = '신청서를 입력하세요';
 
 		$text['label-data']['en-us'] = 'Data';
+		$text['label-data']['en-gb'] = 'Data';
 		$text['label-data']['ar-eg'] = 'بيانات';
 		$text['label-data']['de-at'] = 'Daten';
 		$text['label-data']['de-ch'] = 'Daten';
@@ -160,8 +189,12 @@
 		$text['label-data']['ru-ru'] = 'Данные';
 		$text['label-data']['sv-se'] = 'Data';
 		$text['label-data']['uk-ua'] = 'дані';
+		$text['label-data']['zh-cn'] = '数据';
+		$text['label-data']['ja-jp'] = 'データ';
+		$text['label-data']['ko-kr'] = '데이터';
 
 		$text['description-data']['en-us'] = 'Enter the data.';
+		$text['description-data']['en-gb'] = 'Enter the data.';
 		$text['description-data']['ar-eg'] = 'أدخل البيانات.';
 		$text['description-data']['de-at'] = 'Geben Sie die Daten ein.';
 		$text['description-data']['de-ch'] = 'Geben Sie die Daten ein.';
@@ -180,8 +213,12 @@
 		$text['description-data']['ru-ru'] = 'Введите данные.';
 		$text['description-data']['sv-se'] = 'Ange data.';
 		$text['description-data']['uk-ua'] = 'Введіть дані.';
+		$text['description-data']['zh-cn'] = '输入数据。';
+		$text['description-data']['ja-jp'] = 'データを入力します。';
+		$text['description-data']['ko-kr'] = '데이터를 입력하세요.';
 
 		$text['label-enabled']['en-us'] = 'Enabled';
+		$text['label-enabled']['en-gb'] = 'Enabled';
 		$text['label-enabled']['ar-eg'] = 'ممكن';
 		$text['label-enabled']['de-at'] = 'Ermöglicht';
 		$text['label-enabled']['de-ch'] = 'Ermöglicht';
@@ -200,8 +237,12 @@
 		$text['label-enabled']['ru-ru'] = 'Включено';
 		$text['label-enabled']['sv-se'] = 'Aktiverad';
 		$text['label-enabled']['uk-ua'] = 'Увімкнено';
+		$text['label-enabled']['zh-cn'] = '启用';
+		$text['label-enabled']['ja-jp'] = '有効';
+		$text['label-enabled']['ko-kr'] = '활성화됨';
 
 		$text['description-enabled']['en-us'] = 'Select to enable or disable.';
+		$text['description-enabled']['en-gb'] = 'Select to enable or disable.';
 		$text['description-enabled']['ar-eg'] = 'حدد للتمكين أو التعطيل.';
 		$text['description-enabled']['de-at'] = 'Wählen Sie zum Aktivieren oder Deaktivieren.';
 		$text['description-enabled']['de-ch'] = 'Wählen Sie zum Aktivieren oder Deaktivieren.';
@@ -220,8 +261,12 @@
 		$text['description-enabled']['ru-ru'] = 'Выберите, чтобы включить или отключить.';
 		$text['description-enabled']['sv-se'] = 'Välj för att aktivera eller inaktivera.';
 		$text['description-enabled']['uk-ua'] = 'Виберіть, щоб увімкнути або вимкнути.';
+		$text['description-enabled']['zh-cn'] = '选择启用或禁用。';
+		$text['description-enabled']['ja-jp'] = '有効または無効を選択します。';
+		$text['description-enabled']['ko-kr'] = '활성화 또는 비활성화하려면 선택하세요.';
 
 		$text['label-description']['en-us'] = 'Description';
+		$text['label-description']['en-gb'] = 'Description';
 		$text['label-description']['ar-eg'] = 'وصف';
 		$text['label-description']['de-at'] = 'Beschreibung';
 		$text['label-description']['de-ch'] = 'Beschreibung';
@@ -240,8 +285,12 @@
 		$text['label-description']['ru-ru'] = 'Описание';
 		$text['label-description']['sv-se'] = 'Beskrivning';
 		$text['label-description']['uk-ua'] = 'опис';
+		$text['label-description']['zh-cn'] = '描述';
+		$text['label-description']['ja-jp'] = '説明';
+		$text['label-description']['ko-kr'] = '설명';
 
 		$text['description-description']['en-us'] = 'Enter the description.';
+		$text['description-description']['en-gb'] = 'Enter the description.';
 		$text['description-description']['ar-eg'] = 'أدخل الوصف.';
 		$text['description-description']['de-at'] = 'Geben Sie die Beschreibung ein.';
 		$text['description-description']['de-ch'] = 'Geben Sie die Beschreibung ein.';
@@ -260,5 +309,8 @@
 		$text['description-description']['ru-ru'] = 'Введите описание.';
 		$text['description-description']['sv-se'] = 'Ange beskrivningen.';
 		$text['description-description']['uk-ua'] = 'Введіть опис.';
+		$text['description-description']['zh-cn'] = '输入描述。';
+		$text['description-description']['ja-jp'] = '説明を入力します。';
+		$text['description-description']['ko-kr'] = '설명을 입력하세요.';
 
 ?>
