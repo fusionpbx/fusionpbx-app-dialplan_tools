@@ -1,6 +1,6 @@
 <?php
 /*
-	Copyright (c) 2019-2023 Mark J Crane <markjcrane@fusionpbx.com>
+	Copyright (c) 2019-2024 Mark J Crane <markjcrane@fusionpbx.com>
 	
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
@@ -28,9 +28,9 @@
 
 //includes files
 	require_once dirname(__DIR__, 2) . "/resources/require.php";
-	require_once "resources/check_auth.php";
 
 //check permissions
+	require_once "resources/check_auth.php";
 	if (permission_exists('dialplan_tool_add') || permission_exists('dialplan_tool_edit')) {
 		//access granted
 	}
@@ -174,7 +174,7 @@
 	}
 
 //get the list of applications
-	$fp = event_socket_create($_SESSION['event_socket_ip_address'], $_SESSION['event_socket_port'], $_SESSION['event_socket_password']);
+	$fp = event_socket_create();
 	if ($fp) {
 		$result = event_socket_request($fp, 'api show application as json');
 		if (is_array($result)) {
