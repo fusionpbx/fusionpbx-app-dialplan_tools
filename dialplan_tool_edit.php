@@ -1,14 +1,14 @@
 <?php
 /*
-	Copyright (c) 2019-2024 Mark J Crane <markjcrane@fusionpbx.com>
-	
+	Copyright (c) 2019-2025 Mark J Crane <markjcrane@fusionpbx.com>
+
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
 
 		1. Redistributions of source code must retain the above copyright
 		notice, this list of conditions and the following disclaimer.
-	
+
 		2. Redistributions in binary form must reproduce the above copyright
 		notice, this list of conditions and the following disclaimer in the
 		documentation and/or other materials provided with the distribution.
@@ -31,10 +31,7 @@
 
 //check permissions
 	require_once "resources/check_auth.php";
-	if (permission_exists('dialplan_tool_add') || permission_exists('dialplan_tool_edit')) {
-		//access granted
-	}
-	else {
+	if (!permission_exists('dialplan_tool_add') && !permission_exists('dialplan_tool_edit')) {
 		echo "access denied";
 		exit;
 	}
@@ -144,10 +141,10 @@
 				$array['dialplan_tools'][0]['domain_uuid'] = $_SESSION['domain_uuid'];
 			}
 			$array['dialplan_tools'][0]['name'] = $name;
-			if (!preg_match("/system/i", $application)) { 
+			if (!preg_match("/system/i", $application)) {
 				$array['dialplan_tools'][0]['application'] = $application;
 			}
-			if (!preg_match("/system/i", $data)) { 
+			if (!preg_match("/system/i", $data)) {
 				$array['dialplan_tools'][0]['data'] = $data;
 			}
 			$array['dialplan_tools'][0]['enabled'] = $enabled;
@@ -228,16 +225,16 @@
 	echo "<div class='action_bar' id='action_bar'>\n";
 	echo "	<div class='heading'><b>".$text['title-dialplan_tool']."</b></div>\n";
 	echo "	<div class='actions'>\n";
-	echo button::create(['type'=>'button','label'=>$text['button-back'],'icon'=>$_SESSION['theme']['button_icon_back'],'id'=>'btn_back','collapse'=>'hide-xs','style'=>'margin-right: 15px;','link'=>'dialplan_tools.php']);
+	echo button::create(['type'=>'button','label'=>$text['button-back'],'icon'=>$settings->get('theme','button_icon_back'),'id'=>'btn_back','collapse'=>'hide-xs','style'=>'margin-right: 15px;','link'=>'dialplan_tools.php']);
 	if ($action == 'update') {
 		if (permission_exists('_add')) {
-			echo button::create(['type'=>'button','label'=>$text['button-copy'],'icon'=>$_SESSION['theme']['button_icon_copy'],'id'=>'btn_copy','name'=>'btn_copy','style'=>'display: none;','onclick'=>"modal_open('modal-copy','btn_copy');"]);
+			echo button::create(['type'=>'button','label'=>$text['button-copy'],'icon'=>$settings->get('theme','button_icon_copy'),'id'=>'btn_copy','name'=>'btn_copy','style'=>'display: none;','onclick'=>"modal_open('modal-copy','btn_copy');"]);
 		}
 		if (permission_exists('_delete')) {
-			echo button::create(['type'=>'button','label'=>$text['button-delete'],'icon'=>$_SESSION['theme']['button_icon_delete'],'id'=>'btn_delete','name'=>'btn_delete','style'=>'display: none; margin-right: 15px;','onclick'=>"modal_open('modal-delete','btn_delete');"]);
+			echo button::create(['type'=>'button','label'=>$text['button-delete'],'icon'=>$settings->get('theme','button_icon_delete'),'id'=>'btn_delete','name'=>'btn_delete','style'=>'display: none; margin-right: 15px;','onclick'=>"modal_open('modal-delete','btn_delete');"]);
 		}
 	}
-	echo button::create(['type'=>'submit','label'=>$text['button-save'],'icon'=>$_SESSION['theme']['button_icon_save'],'id'=>'btn_save','collapse'=>'hide-xs']);
+	echo button::create(['type'=>'submit','label'=>$text['button-save'],'icon'=>$settings->get('theme','button_icon_save'),'id'=>'btn_save','collapse'=>'hide-xs']);
 	echo "	</div>\n";
 	echo "	<div style='clear: both;'></div>\n";
 	echo "</div>\n";
@@ -379,5 +376,3 @@
 
 //include the footer
 	require_once "resources/footer.php";
-
-?>
