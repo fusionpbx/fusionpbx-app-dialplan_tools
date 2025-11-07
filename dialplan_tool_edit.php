@@ -190,7 +190,7 @@
 		$sql .= "name, ";
 		$sql .= "application, ";
 		$sql .= "data, ";
-		$sql .= "cast(enabled as text), ";
+		$sql .= "enabled, ";
 		$sql .= "description ";
 		$sql .= "from v_dialplan_tools ";
 		$sql .= "where dialplan_tool_uuid = :dialplan_tool_uuid ";
@@ -336,20 +336,17 @@
 	echo "	".$text['label-enabled']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<select class='formfld' name='enabled'>\n";
-	if (!empty($enabled) && $enabled == "true") {
-		echo "		<option value='true' selected='selected'>".$text['label-true']."</option>\n";
+	if ($input_toggle_style_switch) {
+		echo "	<span class='switch'>\n";
 	}
-	else {
-		echo "		<option value='true'>".$text['label-true']."</option>\n";
+	echo "		<select class='formfld' id='enabled' name='enabled'>\n";
+	echo "			<option value='true' ".($enabled === true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
+	echo "			<option value='false' ".($enabled === false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
+	echo "		</select>\n";
+	if ($input_toggle_style_switch) {
+		echo "		<span class='slider'></span>\n";
+		echo "	</span>\n";
 	}
-	if (!empty($enabled) && $enabled == "false") {
-		echo "		<option value='false' selected='selected'>".$text['label-false']."</option>\n";
-	}
-	else {
-		echo "		<option value='false'>".$text['label-false']."</option>\n";
-	}
-	echo "	</select>\n";
 	echo "<br />\n";
 	echo $text['description-enabled']."\n";
 	echo "</td>\n";
