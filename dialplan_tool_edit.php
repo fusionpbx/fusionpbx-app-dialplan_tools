@@ -204,7 +204,7 @@
 			$name = $row["name"];
 			$application = $row["application"];
 			$data = $row["data"];
-			$enabled = $row["enabled"];
+			$enabled = $row["enabled"] ?? false;
 			$description = $row["description"];
 		}
 		unset($sql, $parameters, $row);
@@ -340,8 +340,8 @@
 		echo "	<span class='switch'>\n";
 	}
 	echo "		<select class='formfld' id='enabled' name='enabled'>\n";
-	echo "			<option value='true' ".($enabled === true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
-	echo "			<option value='false' ".($enabled === false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
+	echo "			<option value='true' ".($enabled == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
+	echo "			<option value='false' ".($enabled == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
 	echo "		</select>\n";
 	if ($input_toggle_style_switch) {
 		echo "		<span class='slider'></span>\n";
