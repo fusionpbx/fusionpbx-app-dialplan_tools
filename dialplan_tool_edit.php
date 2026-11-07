@@ -194,8 +194,8 @@
 		$sql .= "description ";
 		$sql .= "from v_dialplan_tools ";
 		$sql .= "where dialplan_tool_uuid = :dialplan_tool_uuid ";
-		//$sql .= "and (domain_uuid = :domain_uuid or domain_uuid is null) ";
-		//$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+		$sql .= "and (domain_uuid = :domain_uuid or domain_uuid is null) ";
+		$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
 		$parameters['dialplan_tool_uuid'] = $dialplan_tool_uuid;
 		$database = new database;
 		$row = $database->select($sql, $parameters ?? null, 'row');
