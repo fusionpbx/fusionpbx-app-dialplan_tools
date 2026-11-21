@@ -49,13 +49,38 @@
 		$action = "add";
 	}
 
+//verify the dialplan tool belongs to the current domain unless allowed to access all domains
+	if (!permission_exists('dialplan_tool_all')) {
+		$checked_uuids = [];
+		if (is_uuid($_REQUEST["id"] ?? '')) {
+			$checked_uuids[] = $_REQUEST["id"];
+		}
+		if (is_uuid($_POST["dialplan_tool_uuid"] ?? '')) {
+			$checked_uuids[] = $_POST["dialplan_tool_uuid"];
+		}
+		foreach ($checked_uuids as $checked_uuid) {
+			$sql = "select dialplan_tool_uuid from v_dialplan_tools ";
+			$sql .= "where dialplan_tool_uuid = :dialplan_tool_uuid ";
+			$sql .= "and (domain_uuid = :domain_uuid or domain_uuid is null) ";
+			$parameters['dialplan_tool_uuid'] = $checked_uuid;
+			$parameters['domain_uuid'] = $_SESSION['domain_uuid'];
+			$row = $database->select($sql, $parameters, 'row');
+			if (empty($row)) {
+				echo "access denied";
+				exit;
+			}
+			unset($sql, $parameters, $row);
+		}
+		unset($checked_uuids);
+	}
+
 //get http post variables and set them to php variables
 	if (!empty($_POST) && is_array($_POST)) {
-		$name = $_POST["name"];
-		$application = $_POST["application"];
-		$data = $_POST["data"];
-		$enabled = $_POST["enabled"];
-		$description = $_POST["description"];
+		$name = is_string($_POST["name"] ?? null) ? $_POST["name"] : null;
+		$application = is_string($_POST["application"] ?? null) ? $_POST["application"] : null;
+		$data = is_string($_POST["data"] ?? null) ? $_POST["data"] : null;
+		$enabled = is_string($_POST["enabled"] ?? null) ? $_POST["enabled"] : null;
+		$description = is_string($_POST["description"] ?? null) ? $_POST["description"] : null;
 	}
 
 //process the user data and save it to the database
@@ -70,7 +95,7 @@
 			}
 
 		//process the http post data by submitted action
-			if (!empty($_POST['action']) && strlen($_POST['action']) > 0) {
+			if (!empty($_POST['action']) && is_string($_POST['action']) && strlen($_POST['action']) > 0) {
 
 				//prepare the array(s)
 				//send the array to the database class

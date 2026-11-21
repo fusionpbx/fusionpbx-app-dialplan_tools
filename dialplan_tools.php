@@ -49,8 +49,8 @@
 
 //get the http post data
 	if (!empty($_POST['dialplan_tools']) && is_array($_POST['dialplan_tools'])) {
-		$action = $_POST['action'];
-		$search = $_POST['search'] ?? null;
+		$action = is_string($_POST['action'] ?? null) ? $_POST['action'] : null;
+		$search = is_string($_POST['search'] ?? null) ? $_POST['search'] : null;
 		$dialplan_tools = $_POST['dialplan_tools'];
 	}
 
@@ -68,29 +68,59 @@
 		//prepare the array
 		$x = 0;
 		foreach ($dialplan_tools as $row) {
+			//skip records that are not an array or do not have a valid uuid
+			if (!is_array($row) || !is_uuid($row['dialplan_tool_uuid'] ?? '')) {
+				continue;
+			}
+
 			$array['dialplan_tools'][$x]['checked'] = $row['checked'] ?? null;
 			$array['dialplan_tools'][$x]['dialplan_tool_uuid'] = $row['dialplan_tool_uuid'];
 			$array['dialplan_tools'][$x]['enabled'] = $row['enabled'] ?? null;
 			$x++;
 		}
 
+		//verify the records belong to the current domain unless allowed to access all domains
+		if (!empty($array['dialplan_tools']) && !permission_exists('dialplan_tool_all')) {
+			$sql = "select dialplan_tool_uuid from v_dialplan_tools ";
+			$sql .= "where (domain_uuid = :domain_uuid or domain_uuid is null) ";
+			$sql .= "and dialplan_tool_uuid in (";
+			foreach ($array['dialplan_tools'] as $i => $row) {
+				$sql .= ($i > 0 ? ", " : "") . ":uuid_" . $i . " ";
+				$parameters['uuid_' . $i] = $row['dialplan_tool_uuid'];
+			}
+			$sql .= ") ";
+			$parameters['domain_uuid'] = $domain_uuid;
+			$rows = $database->select($sql, $parameters, 'all');
+			unset($sql, $parameters);
+			$allowed_uuids = is_array($rows) ? array_column($rows, 'dialplan_tool_uuid') : [];
+
+			//remove records that are not in the current domain
+			foreach ($array['dialplan_tools'] as $i => $row) {
+				if (!in_array($row['dialplan_tool_uuid'], $allowed_uuids)) {
+					unset($array['dialplan_tools'][$i]);
+				}
+			}
+		}
+
 		//send the array to the database class
-		switch ($action) {
-			case 'copy':
-				if (permission_exists('dialplan_tool_add')) {
-					$database->copy($array);
-				}
-				break;
-			case 'toggle':
-				if (permission_exists('dialplan_tool_edit')) {
-					$database->toggle($array);
-				}
-				break;
-			case 'delete':
-				if (permission_exists('dialplan_tool_delete')) {
-					$database->delete($array);
-				}
-				break;
+		if (!empty($array['dialplan_tools'])) {
+			switch ($action) {
+				case 'copy':
+					if (permission_exists('dialplan_tool_add')) {
+						$database->copy($array);
+					}
+					break;
+				case 'toggle':
+					if (permission_exists('dialplan_tool_edit')) {
+						$database->toggle($array);
+					}
+					break;
+				case 'delete':
+					if (permission_exists('dialplan_tool_delete')) {
+						$database->delete($array);
+					}
+					break;
+			}
 		}
 
 		//redirect the user
@@ -103,7 +133,7 @@
 	$order = $_GET["order"] ?? null;
 
 //add the search
-	if (isset($_GET["search"])) {
+	if (isset($_GET["search"]) && is_string($_GET["search"])) {
 		$search = strtolower($_GET["search"]);
 	}
 
@@ -156,7 +186,7 @@
 		$sql .= "where (domain_uuid = :domain_uuid or domain_uuid is null) ";
 		$parameters['domain_uuid'] = $domain_uuid;
 	}
-	if (isset($_GET["search"])) {
+	if (isset($search)) {
 		$sql .= "and (";
 		$sql .= "	lower(name) like :search ";
 		$sql .= "	or lower(application) like :search ";
